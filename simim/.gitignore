@@ -1,0 +1,19 @@
+*__pycache__
+*.DS_Store
+*.npz
+*.png
+*.jpg
+*.jpeg
+
+random/*
+
+# These should be created for every install independently
+simim/resources/filepaths.txt
+simim/resources/lcpaths.txt
+simim/resources/rootpath.txt
+simim/resources/sfrpaths.txt
+simim/resources/**
+
+**/.ipynb_checkpoints
+
+simim.egg-info

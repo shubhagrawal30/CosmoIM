@@ -1,0 +1,6 @@
+scipy 
+astropy 
+matplotlib 
+requests 
+h5py 
+gdown
