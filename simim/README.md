@@ -1,3 +1,27 @@
+# Copied from a local copy branch 'shubh' on tim-balloon/simim on March 12, 2023
+## Untracked changes made from that local copy that were not pushed to GitHub:
+        modified:   SLIM-TIM/rough_cube.py
+        
+        modified:   TIM_model/0.1_tim_model_dev.ipynb
+        
+        modified:   TIM_model/1.1_making_a_tim_light_cone_and_cube.ipynb
+        
+        modified:   TIM_model/1.2_interacting_with_a_cube.ipynb
+        
+        modified:   examples/power_spectrum_demo.ipynb
+        
+        modified:   examples/sim_handler_demo.ipynb
+        
+        modified:   simim/_paths.py
+        
+        modified:   simim/siminterface/_rawsiminterface.py
+        
+        modified:   simim/siminterface/_sims.py
+        
+        modified:   simim/siminterface/illustris.py
+
+-----------------------------------------
+
 # Overview
 
 # Installation
