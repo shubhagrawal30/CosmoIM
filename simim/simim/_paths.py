@@ -29,19 +29,19 @@ class _paths():
         if os.path.exists(self.path_file):
             with open(self.path_file) as file:
                 for line in file.readlines():
-                    self.paths[line[:line.index(' ')]] = line[line.index(' ')+1:]
+                    self.paths[line[:line.index(' ')]] = line[line.index(' ')+1:].strip()
 
         self.lightcones = {}
         if os.path.exists(self.lc_file):
             with open(self.lc_file) as file:
                 for line in file.readlines():
-                    self.lightcones[line[:line.index(' ')]] = line[line.index(' ')+1:]
+                    self.lightcones[line[:line.index(' ')]] = line[line.index(' ')+1:].strip()
 
         self.sfrs = {}
         if os.path.exists(self.sfr_file):
             with open(self.sfr_file) as file:
                 for line in file.readlines():
-                    self.sfrs[line[:line.index(' ')]] = line[line.index(' ')+1:]
+                    self.sfrs[line[:line.index(' ')]] = line[line.index(' ')+1:].strip()
 
     def _setuppath(self,root='~'):
         """Create a directory root/simim_resources/simulations"""
@@ -130,7 +130,7 @@ class _paths():
 
         # Write the new path name
         with open(self.path_file,'a') as file:
-            file.write('\n{} {}'.format(sim,new_path))
+            file.write('{} {}\n'.format(sim,new_path))
 
         self.paths[sim] = new_path
 
