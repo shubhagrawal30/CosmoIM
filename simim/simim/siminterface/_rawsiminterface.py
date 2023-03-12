@@ -199,7 +199,7 @@ class sim_catalogs():
         file_path = self.path+'/raw'
         os.system("rm -r {}".format(file_path))
 
-    def format(self,remake=False,basic=False):
+    def format(self,remake=False, basic=False, verbose=True):
 
         if not remake:
             if os.path.exists(self.path+'/data.hdf5'):
@@ -222,7 +222,8 @@ class sim_catalogs():
 
         # Now get the data
         for snap in self.snaps:
-            print("Formatting snap {}".format(snap))
+            if verbose:
+                print("Formatting snap {}".format(snap))
 
             # Load stuff in from original file formats
             subhalos, n_halos = self.loader(path=self.path+'/raw/', snapshot=snap, fields=self.all_fields.keys())
