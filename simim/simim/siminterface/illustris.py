@@ -320,8 +320,6 @@ class illustris_catalogs(sim_catalogs):
                 full_sim_path = os.path.join(sims_folder_path, self.path[self.path.index(cst):])
                 break
         
-        full_sim_path = "/global/cfs/cdirs/des/shubh/camels/~camels/FOF_Subfind/IllustrisTNG/CV_3/"
-        
         fullsim_file = h5py.File(os.path.join(full_sim_path, "fof_subhalo_tab_000.hdf5"), 'r')
         fullsim_header = fullsim_file['Header'].attrs
         
