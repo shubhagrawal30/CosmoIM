@@ -306,7 +306,7 @@ class illustris_catalogs(sim_catalogs):
 ##########################################################################
     
     def download_meta_camels(self, redownload=False, \
-                             sims_folder_path="/global/cfs/cdirs/des/shubh/camels/~camels/FOF_Subfind/IllustrisTNG/"):
+                             sims_folder_path="/global/cfs/cdirs/des/shubh/timsim/simim_resources/simulations/camels/"):
         
         # Check that metadata doesn't already exist
         if not redownload:
@@ -317,10 +317,10 @@ class illustris_catalogs(sim_catalogs):
         camels_sim_types = ["CV_", "LH_", "1P_", "EX_"]
         for cst in camels_sim_types:
             if cst in self.path:
-                full_sim_path = os.path.join(sims_folder_path, self.path[self.path.index(cst):])
+                full_sim_path = os.path.join(sims_folder_path, self.path[self.path.index(cst):], "raw")
                 break
         
-        fullsim_file = h5py.File(os.path.join(full_sim_path, "fof_subhalo_tab_000.hdf5"), 'r')
+        fullsim_file = h5py.File(os.path.join(full_sim_path, "groups_000", "fof_subhalo_tab_000.hdf5"), 'r')
         fullsim_header = fullsim_file['Header'].attrs
         
         self.metadata = {'name':self.path[self.path.index(cst):],
@@ -339,9 +339,10 @@ class illustris_catalogs(sim_catalogs):
         
         snap_meta_classes = []
         numbers = []
-        for fullsim_filename in os.listdir(full_sim_path):
+        for group_name in os.listdir(full_sim_path):
+            fullsim_filename = os.listdir(os.path.join(full_sim_path, group_name))[0]
             if bool(re.match(r'fof_subhalo_tab_\d{3}\.hdf5', fullsim_filename)):
-                with h5py.File(os.path.join(full_sim_path, fullsim_filename), 'r') as fullsim_file:
+                with h5py.File(os.path.join(full_sim_path, group_name, fullsim_filename), 'r') as fullsim_file:
                     fullsim_header = fullsim_file['Header'].attrs
                     snap_meta_classes.append(snapshot(int(fullsim_filename[16:19]),fullsim_header['Redshift'],self.metadata))
                     numbers.append(int(fullsim_filename[16:19]))
