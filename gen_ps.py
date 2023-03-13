@@ -109,6 +109,7 @@ if __name__ == "__main__":
     # one_simulation("CV_0")
     
     args = os.listdir("/global/cfs/cdirs/des/shubh/timsim/simim_resources/simulations/camels/")
+    # args.remove("LH_529")
     my_pool = mp.Pool(processes=num_threads)
     _ = my_pool.map(one_simulation, args)
     
