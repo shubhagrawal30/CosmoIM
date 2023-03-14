@@ -110,17 +110,17 @@ def one_simulation(sim_name_camels, overwrite=False):
     
 if __name__ == "__main__":
     start = time.time()
-    # one_simulation("CV_0")
+    one_simulation("LH_603", overwrite=True)
             
-    args = os.listdir("/global/cfs/cdirs/des/shubh/timsim/simim_resources/simulations/camels/")
+#     args = os.listdir("/global/cfs/cdirs/des/shubh/timsim/simim_resources/simulations/camels/")
     
-    overwrite = False
-    for sim_name_camels in copy(args):
-        if (not overwrite) and os.path.exists(os.path.join(out_dir, sim_name_camels + ".npz")):
-            args.remove(sim_name_camels)
-    print(f"running {len(args)} simulations")
-    my_pool = mp.Pool(processes=num_threads)
-    _ = my_pool.map(one_simulation, args)
+#     overwrite = False
+#     for sim_name_camels in copy(args):
+#         if (not overwrite) and os.path.exists(os.path.join(out_dir, sim_name_camels + ".npz")):
+#             args.remove(sim_name_camels)
+#     print(f"running {len(args)} simulations")
+#     my_pool = mp.Pool(processes=num_threads)
+#     _ = my_pool.map(one_simulation, args)
     
     print(time.time() - start)
     
