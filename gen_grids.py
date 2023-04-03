@@ -12,13 +12,13 @@ from copy import copy
 
 plt.rcParams.update({'font.size': 8})
 
-plots_dir = "./grids/CO/20230327_1-2/plots/"
-out_dir = "./grids/CO/20230327_1-2/"
+out_dir = "./grids/CO/20230403_2/"
+plots_dir = f"{out_dir}/plots/"
 Path(plots_dir).mkdir(parents=True, exist_ok=True)
 Path(out_dir).mkdir(parents=True, exist_ok=True)
 
 num_snaps = 34
-pixel_size = 0.5
+pixel_size = 2
 bins = np.logspace(-4,4,81)
 num_threads = 32
 
@@ -79,14 +79,16 @@ def one_simulation(sim_name_camels, overwrite=False):
 
             # Make the grid
             grid = gridder(positions,temps,center_point=center_point,side_length=side_length,pixel_size=pixel_size,axunits='Mpc',gridunits='uK')
-
+            # ps = grid.power_spectrum(in_place=False,normalize=True)
+            
+            # curves[snap_index] = np.log(ps.grid[:,:,:,0])
             curves[snap_index] = grid.grid[:,:,:,0]
             redshifts[snap_index] = snap_z
             
             if snap_index % plot_skip == 0:
                 ax = axs[plot_index]
                 ax.set_title(f"{snap_index}, {snap_z:.4f}")
-                im = ax.imshow(np.nanmean(grid.grid[:,:,:,0], axis=0), vmax=2, cmap="cividis", origin="lower")
+                im = ax.imshow(np.nanmean(curves[snap_index], axis=0), cmap="cividis", origin="lower")
                 ax.grid()
                 cbar = fig.colorbar(im, ax=ax)
                 plot_index += 1
@@ -101,17 +103,17 @@ def one_simulation(sim_name_camels, overwrite=False):
     
 if __name__ == "__main__":
     start = time.time()
-    one_simulation("LH_603", overwrite=True)
+    # one_simulation("CV_0", overwrite=True)
             
-#     args = os.listdir("/global/cfs/cdirs/des/shubh/timsim/simim_resources/simulations/camels/")
+    args = os.listdir("/global/cfs/cdirs/des/shubh/timsim/simim_resources/simulations/camels/")
     
-#     overwrite = False
-#     for sim_name_camels in copy(args):
-#         if (not overwrite) and os.path.exists(os.path.join(out_dir, sim_name_camels + ".npz")):
-#             args.remove(sim_name_camels)
-#     print(f"running {len(args)} simulations")
-#     my_pool = mp.Pool(processes=num_threads)
-#     _ = my_pool.map(one_simulation, args)
+    overwrite = False
+    for sim_name_camels in copy(args):
+        if (not overwrite) and os.path.exists(os.path.join(out_dir, sim_name_camels + ".npz")):
+            args.remove(sim_name_camels)
+    print(f"running {len(args)} simulations")
+    my_pool = mp.Pool(processes=num_threads)
+    _ = my_pool.map(one_simulation, args)
     
     print(time.time() - start)
     
