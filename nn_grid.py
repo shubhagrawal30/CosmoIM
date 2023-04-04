@@ -3,14 +3,20 @@ import pandas as pd
 import tensorflow as tf
 from matplotlib import pyplot as plt
 import os
+from contextlib import redirect_stdout
+from pathlib import Path
 
 print()
 print(tf.config.list_physical_devices('GPU'))
 
 df = pd.read_csv('./camels_info/camels_parameters.csv')
 
-out_dir = "./grids/CO/20230327_1-2/"
-models_dir = "./models/20230402_CO_20230327_1-2/"
+# grid_dir = "20230327_1-2"
+grid_dir = "20230403_2"
+out_dir = f"./grids/CO/{grid_dir}/"
+models_dir = f"./models/20230402_CO_{grid_dir}/"
+
+Path(models_dir).mkdir(parents=True, exist_ok=True)
 
 def get_LH_files():
     fils = list(map(lambda fil: fil[:-4], \
@@ -45,20 +51,24 @@ train_x, val_x, test_x = map(lambda arr: np.transpose(arr, axes=[0, 2, 3, 4, 1])
 print(train_x.shape, val_x.shape, test_x.shape)
 print(train_y.shape, val_y.shape, test_y.shape)
 
-input_shape = (74, 74, 74, 34)
+# input_shape = (74, 74, 74, 34)
+input_shape = (18, 18, 18, 34)
 output_num = 6
-
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(64, activation='leaky_relu', input_shape=input_shape),
-  tf.keras.layers.Dense(32, activation='leaky_relu'),
-  tf.keras.layers.Conv3D(32, kernel_size=(2, 2, 2), activation='relu'),
-  tf.keras.layers.MaxPooling3D(pool_size=(3, 3, 3)),
-  tf.keras.layers.Conv3D(32, kernel_size=(3, 3, 3), activation='relu'),
-  tf.keras.layers.MaxPooling3D(pool_size=(3, 3, 3)),
   tf.keras.layers.Flatten(),
-  tf.keras.layers.Dense(64, activation='leaky_relu'),
-  tf.keras.layers.Dense(32, activation='leaky_relu'),
-  tf.keras.layers.Dense(32, activation='relu'),
+    tf.keras.layers.Dense(256, activation='leaky_relu'),
+  tf.keras.layers.Dense(256, activation='leaky_relu'),
+  tf.keras.layers.Dense(256, activation='leaky_relu'),
+  # tf.keras.layers.Conv3D(256, kernel_size=(2, 2, 2), activation='relu'),
+  # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
+  # tf.keras.layers.Conv3D(256, kernel_size=(2, 2, 2), activation='relu'),
+  # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
+  # tf.keras.layers.Conv3D(256, kernel_size=(2, 2, 2), activation='relu'),
+  # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
+  # tf.keras.layers.Dense(256, activation='leaky_relu'),
+  # tf.keras.layers.Dense(256, activation='leaky_relu'),
+  tf.keras.layers.Dense(256, activation='relu'),
+  tf.keras.layers.Dense(256, activation='relu'),
   tf.keras.layers.Dense(output_num, activation='linear') # assuming 6 output parameters
 ])
 
@@ -68,8 +78,21 @@ model.compile(loss=tf.keras.losses.LogCosh(), optimizer='adam')
 
 model.summary()
 
+with open(models_dir + 'modelsummary.txt', 'w') as f:
+    with redirect_stdout(f):
+        model.summary()
+
 # Train the model
-history = model.fit(train_x, train_y, batch_size=1, epochs=1, validation_data=(val_x, val_y))
+history = model.fit(train_x, train_y, epochs=50, validation_data=(val_x, val_y))
+
+plt.figure(figsize=(10, 10))
+plt.plot(history.history['loss'], label="loss", marker="x", ls=":")
+plt.plot(history.history['val_loss'], label="val_loss", marker="x", ls=":")
+plt.legend()
+plt.grid()
+plt.yscale("log")
+plt.savefig(models_dir + f"/training.pdf")
+plt.close()
 
 model.save(models_dir)
 
@@ -77,7 +100,7 @@ predictions = model.predict(val_x)
 upp_lims = [0.6, 1.25, 5, 4, 2, 2]
 low_lims = [0, 0.5, -1, 0, 0, 0]
 labels = ["sigma_m", "omega_8", "A_SN1", "A_SN2", "A_AGN1", "A_AGN2"]
-fig, axs = plt.subplots(nrows=3, ncols=2)
+fig, axs = plt.subplots(nrows=3, ncols=2, figsize=(10, 15))
 for ind, (label, ax, low_lim, upp_lim) in enumerate(zip(labels, axs.ravel(), low_lims, upp_lims)):
     p = np.poly1d(np.polyfit(val_y[:, ind], predictions[:, ind], 1))
     ax.scatter(val_y[:, ind], predictions[:, ind])
