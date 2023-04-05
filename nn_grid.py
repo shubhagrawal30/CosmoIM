@@ -12,7 +12,7 @@ print(tf.config.list_physical_devices('GPU'))
 df = pd.read_csv('./camels_info/camels_parameters.csv')
 
 # grid_dir = "20230327_1-2"
-grid_dir = "20230403_2"
+grid_dir = "20230403_2_f"
 out_dir = f"./grids/CO/{grid_dir}/"
 models_dir = f"./models/20230402_CO_{grid_dir}/"
 
@@ -55,18 +55,19 @@ print(train_y.shape, val_y.shape, test_y.shape)
 input_shape = (18, 18, 18, 34)
 output_num = 6
 model = tf.keras.Sequential([
+    tf.keras.layers.InputLayer(input_shape=input_shape),
+  #   tf.keras.layers.Dense(256, activation='leaky_relu'),
+  # tf.keras.layers.Dense(256, activation='leaky_relu'),
+  # tf.keras.layers.Dense(256, activation='leaky_relu'),
+  # tf.keras.layers.Conv3D(256, kernel_size=2, activation='relu'),
+  # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
+  # tf.keras.layers.Conv3D(256, kernel_size=3, activation='relu'),
+  # # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
+  # tf.keras.layers.Conv3D(256, kernel_size=4, activation='relu'),
+  # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
   tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(256, activation='leaky_relu'),
   tf.keras.layers.Dense(256, activation='leaky_relu'),
   tf.keras.layers.Dense(256, activation='leaky_relu'),
-  # tf.keras.layers.Conv3D(256, kernel_size=(2, 2, 2), activation='relu'),
-  # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
-  # tf.keras.layers.Conv3D(256, kernel_size=(2, 2, 2), activation='relu'),
-  # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
-  # tf.keras.layers.Conv3D(256, kernel_size=(2, 2, 2), activation='relu'),
-  # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
-  # tf.keras.layers.Dense(256, activation='leaky_relu'),
-  # tf.keras.layers.Dense(256, activation='leaky_relu'),
   tf.keras.layers.Dense(256, activation='relu'),
   tf.keras.layers.Dense(256, activation='relu'),
   tf.keras.layers.Dense(output_num, activation='linear') # assuming 6 output parameters
@@ -83,7 +84,7 @@ with open(models_dir + 'modelsummary.txt', 'w') as f:
         model.summary()
 
 # Train the model
-history = model.fit(train_x, train_y, epochs=50, validation_data=(val_x, val_y))
+history = model.fit(train_x, train_y, epochs=200, validation_data=(val_x, val_y))
 
 plt.figure(figsize=(10, 10))
 plt.plot(history.history['loss'], label="loss", marker="x", ls=":")
