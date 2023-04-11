@@ -17,7 +17,10 @@ df = pd.read_csv('./camels_info/camels_parameters.csv')
 # grid_dir = "20230327_1-2"
 grid_dir = "20230403_2"
 out_dir = f"./grids/CO/{grid_dir}/"
-models_dir = f"./models/20230402_CO_{grid_dir}_sym/"
+models_dir = f"./models/20230402_CO_{grid_dir}_sym_conv/"
+# loss = "mse"
+loss = tf.keras.losses.LogCosh()
+optimizer = 'adam'
 
 Path(models_dir).mkdir(parents=True, exist_ok=True)
 
@@ -69,32 +72,35 @@ input_shape = (18, 18, 18, 34)
 output_num = 6
 model = tf.keras.Sequential([
   tf.keras.layers.InputLayer(input_shape=input_shape),
-  #   tf.keras.layers.Dense(256, activation='leaky_relu'),
-  # tf.keras.layers.Dense(256, activation='leaky_relu'),
-  # tf.keras.layers.Dense(256, activation='leaky_relu'),
-  # tf.keras.layers.Conv3D(256, kernel_size=(2, 2, 2), activation='relu'),
-  # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
-  # tf.keras.layers.Conv3D(256, kernel_size=(2, 2, 2), activation='relu'),
-  # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
-  # tf.keras.layers.Conv3D(256, kernel_size=(2, 2, 2), activation='relu'),
-  # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
+  #   tf.keras.layers.Dense(32, activation='leaky_relu'),
+  # tf.keras.layers.Dense(32, activation='leaky_relu'),
+  # # tf.keras.layers.Dense(32, activation='leaky_relu'),
+  tf.keras.layers.Conv3D(32, kernel_size=2, activation='relu'),
+  tf.keras.layers.MaxPooling3D(pool_size=2),
+  tf.keras.layers.Conv3D(32, kernel_size=3, activation='relu'),
+  tf.keras.layers.MaxPooling3D(pool_size=2),
+  tf.keras.layers.Conv3D(256, kernel_size=3, activation='relu'),
+  # tf.keras.layers.MaxPooling3D(pool_size=2),
   tf.keras.layers.Flatten(),
-  tf.keras.layers.Dense(256, activation='leaky_relu'),
-  tf.keras.layers.Dense(256, activation='leaky_relu'),
-  tf.keras.layers.Dense(256, activation='relu'),
-  tf.keras.layers.Dense(256, activation='relu'),
+  tf.keras.layers.Dense(32, activation='leaky_relu'),
+  tf.keras.layers.Dense(32, activation='leaky_relu'),
+  tf.keras.layers.Dense(32, activation='leaky_relu'),
+  # tf.keras.layers.Dense(256, activation='relu'),
+  # tf.keras.layers.Dense(256, activation='relu'),
   tf.keras.layers.Dense(output_num, activation='linear') # assuming 6 output parameters
 ])
 
 # Compile the model
 # model.compile(loss='mse', optimizer='adam')
-model.compile(loss=tf.keras.losses.LogCosh(), optimizer='adam')
+model.compile(loss=loss, optimizer=optimizer)
 
 model.summary()
 
 with open(models_dir + 'modelsummary.txt', 'w') as f:
     with redirect_stdout(f):
         model.summary()
+        print(f"loss={loss}")
+        print(f"optimizer={optimizer}")
 
 # Train the model
 history = model.fit(train_x_new, train_y_new, epochs=100, validation_data=(val_x, val_y))
@@ -110,6 +116,23 @@ plt.close()
 
 model.save(models_dir)
 
+predictions = model.predict(train_x_new)
+upp_lims = [0.6, 1.25, 5, 4, 2, 2]
+low_lims = [0, 0.5, -1, 0, 0, 0]
+labels = ["sigma_m", "omega_8", "A_SN1", "A_SN2", "A_AGN1", "A_AGN2"]
+fig, axs = plt.subplots(nrows=3, ncols=2, figsize=(10, 15))
+for ind, (label, ax, low_lim, upp_lim) in enumerate(zip(labels, axs.ravel(), low_lims, upp_lims)):
+    p = np.poly1d(np.polyfit(train_y_new[:, ind], predictions[:, ind], 1))
+    ax.scatter(train_y_new[:, ind], predictions[:, ind])
+    ax.plot([low_lim, upp_lim], [low_lim, upp_lim], color="black")
+    ax.plot([low_lim, upp_lim], [p(low_lim), p(upp_lim)], color="black", ls=":")
+    ax.set_xlim([low_lim, upp_lim])
+    ax.set_ylim([low_lim, upp_lim])
+    ax.set_aspect('equal', adjustable='box')
+    ax.set_title(label)
+plt.savefig(models_dir + f"/training_plots.pdf")
+plt.close()
+
 predictions = model.predict(val_x)
 upp_lims = [0.6, 1.25, 5, 4, 2, 2]
 low_lims = [0, 0.5, -1, 0, 0, 0]
@@ -124,5 +147,5 @@ for ind, (label, ax, low_lim, upp_lim) in enumerate(zip(labels, axs.ravel(), low
     ax.set_ylim([low_lim, upp_lim])
     ax.set_aspect('equal', adjustable='box')
     ax.set_title(label)
-plt.savefig(models_dir + f"/plots.pdf")
+plt.savefig(models_dir + f"/validation_plots.pdf")
 plt.close()

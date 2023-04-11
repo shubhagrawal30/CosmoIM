@@ -4,24 +4,18 @@ _________________________________________________________________
 =================================================================
  flatten (Flatten)           (None, 198288)            0         
                                                                  
- dense (Dense)               (None, 256)               50761984  
+ dense (Dense)               (None, 32)                6345248   
                                                                  
- dense_1 (Dense)             (None, 256)               65792     
+ dense_1 (Dense)             (None, 32)                1056      
                                                                  
- dense_2 (Dense)             (None, 256)               65792     
+ dense_2 (Dense)             (None, 32)                1056      
                                                                  
- dense_3 (Dense)             (None, 256)               65792     
-                                                                 
- dense_4 (Dense)             (None, 256)               65792     
-                                                                 
- dense_5 (Dense)             (None, 256)               65792     
-                                                                 
- dense_6 (Dense)             (None, 256)               65792     
-                                                                 
- dense_7 (Dense)             (None, 6)                 1542      
+ dense_3 (Dense)             (None, 6)                 198       
                                                                  
 =================================================================
-Total params: 51,158,278
-Trainable params: 51,158,278
+Total params: 6,347,558
+Trainable params: 6,347,558
 Non-trainable params: 0
 _________________________________________________________________
+loss=<keras.losses.LogCosh object at 0x15521bf7e070>
+optimizer=adam

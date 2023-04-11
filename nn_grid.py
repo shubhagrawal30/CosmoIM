@@ -14,7 +14,10 @@ df = pd.read_csv('./camels_info/camels_parameters.csv')
 # grid_dir = "20230327_1-2"
 grid_dir = "20230403_2_f"
 out_dir = f"./grids/CO/{grid_dir}/"
-models_dir = f"./models/20230402_CO_{grid_dir}/"
+models_dir = f"./models/20230402_CO_{grid_dir}_conv/"
+loss = "mse"
+# loss = tf.keras.losses.LogCosh()
+optimizer = 'adam'
 
 Path(models_dir).mkdir(parents=True, exist_ok=True)
 
@@ -59,10 +62,10 @@ model = tf.keras.Sequential([
   #   tf.keras.layers.Dense(256, activation='leaky_relu'),
   # tf.keras.layers.Dense(256, activation='leaky_relu'),
   # tf.keras.layers.Dense(256, activation='leaky_relu'),
-  # tf.keras.layers.Conv3D(256, kernel_size=2, activation='relu'),
+  tf.keras.layers.Conv3D(256, kernel_size=2, activation='relu'),
+  tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
+  tf.keras.layers.Conv3D(256, kernel_size=3, activation='relu'),
   # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
-  # tf.keras.layers.Conv3D(256, kernel_size=3, activation='relu'),
-  # # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
   # tf.keras.layers.Conv3D(256, kernel_size=4, activation='relu'),
   # tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2)),
   tf.keras.layers.Flatten(),
@@ -75,13 +78,15 @@ model = tf.keras.Sequential([
 
 # Compile the model
 # model.compile(loss='mse', optimizer='adam')
-model.compile(loss=tf.keras.losses.LogCosh(), optimizer='adam')
+model.compile(loss=loss, optimizer=optimizer)
 
 model.summary()
 
 with open(models_dir + 'modelsummary.txt', 'w') as f:
     with redirect_stdout(f):
         model.summary()
+        print(f"loss={loss}")
+        print(f"optimizer={optimizer}")
 
 # Train the model
 history = model.fit(train_x, train_y, epochs=200, validation_data=(val_x, val_y))
