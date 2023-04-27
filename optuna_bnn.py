@@ -3,7 +3,7 @@ import pandas as pd
 import tensorflow as tf
 from matplotlib import pyplot as plt
 import os, sys
-import optuna
+import optuna, logging
 from pathlib import Path
 from datetime import datetime
 import tensorflow_probability as tfp
@@ -26,8 +26,16 @@ out_dir = "./power_spectra/CO/20230313_no_std/"
 optuna_dir = "./models/optuna_bnn/CO_20230313_no_std/"
 Path(optuna_dir + "plots/").mkdir(parents=True, exist_ok=True)
 
-f = open(optuna_dir + 'logger.txt', 'w')
-sys.stdout = PrintToFile(sys.stdout, f)
+logging.basicConfig(filename=optuna_dir + 'optuna.txt',
+                    filemode='w',
+                    level=logging.INFO)
+optuna.logging.disable_default_handler()
+optuna.logging.enable_propagation()
+
+f_tf = open(optuna_dir + 'stdout.txt', 'w')
+sys.stdout = PrintToFile(sys.stdout, f_tf)
+f_op = open(optuna_dir + 'stderr.txt', 'w')
+sys.stderr = PrintToFile(sys.stderr, f_op)
 
 class CustomCallback(tf.keras.callbacks.Callback):
     def __init__(self, PROGRESS_EPOCH=50):
@@ -89,6 +97,7 @@ def negloglik(y_true, y_pred):
 
 def objective(trial):
     try:
+    # if 1:
         n_conv_layers = trial.suggest_int('n_conv_layers', 2, 3)
         n_dense_layers = trial.suggest_int('n_dense_layers', 2, 4)
 
@@ -115,7 +124,7 @@ def objective(trial):
                       loss=negloglik, # tf.keras.losses.LogCosh(), # ['mse'], 
               metrics=['mae', 'mse'], experimental_run_tf_function=False)
 
-        history = model.fit(train_x, train_y, epochs=5000, verbose=0, callbacks=[CustomCallback(1000)])
+        history = model.fit(train_x, train_y, epochs=5000, verbose=0, callbacks=[CustomCallback(1000)], validation_data=(val_x, val_y))
 
         val_loss = model.evaluate(val_x, val_y, verbose=0)
         
@@ -148,19 +157,20 @@ def objective(trial):
         plt.savefig(optuna_dir + f"plots/{trial.number}.pdf")
         plt.close()
         
+        plt.figure()
+        # print(history.history)
         plt.plot(history.history['loss'])
         plt.plot(history.history['val_loss'])
         plt.grid()
         plt.savefig(optuna_dir + f"plots/{trial.number}_hist.pdf")
         plt.close()
-        
         return val_loss[0]
     except Exception as e:
         print(e)
         return np.inf
     
 study = optuna.create_study(direction='minimize')
-study.optimize(objective, n_trials=100)
+study.optimize(objective, n_trials=1000)
 
 fig = plot_optimization_history(study)
 plt.savefig(optuna_dir + "plots/history.pdf")

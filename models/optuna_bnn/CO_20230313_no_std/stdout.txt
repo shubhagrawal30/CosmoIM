@@ -1,0 +1,14 @@
+
+[PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+999
+849 100 50 999
+(849, 34, 22) (100, 34, 22) (50, 34, 22)
+(849, 6) (100, 6) (50, 6)
+14:49:38, epoch 0: loss: 53.296	mae: 1.173	mse: 2.281	val_loss: 49.845	val_mae: 1.115	val_mse: 2.017	
+14:55:52, epoch 1000: loss: 8.871	mae: 0.584	mse: 0.877	val_loss: 8.949	val_mae: 0.601	val_mse: 0.867	
+15:01:01, epoch 2000: loss: 3.420	mae: 0.583	mse: 0.851	val_loss: 3.592	val_mae: 0.591	val_mse: 0.846	
+15:07:54, epoch 3000: loss: 2.286	mae: 0.570	mse: 0.817	val_loss: 2.252	val_mae: 0.565	val_mse: 0.840	
+15:12:54, epoch 4000: loss: 1.950	mae: 0.575	mse: 0.829	val_loss: 2.012	val_mae: 0.522	val_mse: 0.675	
+15:17:09, epoch 0: loss: 17.859	mae: 1.063	mse: 1.926	val_loss: 15.403	val_mae: 0.962	val_mse: 1.562	
+15:21:16, epoch 1000: loss: 3.441	mae: 0.574	mse: 0.827	val_loss: 3.484	val_mae: 0.547	val_mse: 0.718	
+15:26:38, epoch 2000: loss: 2.270	mae: 0.565	mse: 0.803	val_loss: 2.115	val_mae: 0.522	val_mse: 0.712	

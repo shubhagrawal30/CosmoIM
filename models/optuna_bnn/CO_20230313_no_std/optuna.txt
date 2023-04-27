@@ -1,0 +1,2 @@
+INFO:optuna.storages._in_memory:A new study created in memory with name: no-name-69010d5f-354b-4ee2-9d13-66bb422c9a6b
+INFO:optuna.study.study:Trial 0 finished with value: 1.838951826095581 and parameters: {'n_conv_layers': 2, 'n_dense_layers': 3, 'log2(n_conv_units_l0)': 1, 'n_conv_kernel_l0': 3, 'log2(n_conv_units_l1)': 1, 'n_conv_kernel_l1': 2, 'log2(n_dense_units_l0)': 5, 'log2(n_dense_units_l1)': 7, 'log2(n_dense_units_l2)': 6}. Best is trial 0 with value: 1.838951826095581.
