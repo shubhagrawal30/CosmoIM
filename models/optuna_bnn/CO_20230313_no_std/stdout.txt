@@ -12,3 +12,92 @@
 15:17:09, epoch 0: loss: 17.859	mae: 1.063	mse: 1.926	val_loss: 15.403	val_mae: 0.962	val_mse: 1.562	
 15:21:16, epoch 1000: loss: 3.441	mae: 0.574	mse: 0.827	val_loss: 3.484	val_mae: 0.547	val_mse: 0.718	
 15:26:38, epoch 2000: loss: 2.270	mae: 0.565	mse: 0.803	val_loss: 2.115	val_mae: 0.522	val_mse: 0.712	
+15:31:59, epoch 3000: loss: 1.843	mae: 0.562	mse: 0.807	val_loss: 1.737	val_mae: 0.556	val_mse: 0.737	
+15:37:25, epoch 4000: loss: 1.602	mae: 0.551	mse: 0.780	val_loss: 1.905	val_mae: 0.539	val_mse: 0.713	
+15:43:07, epoch 0: loss: 541.474	mae: 1.703	mse: 4.927	val_loss: 514.427	val_mae: 1.691	val_mse: 5.218	
+15:48:31, epoch 1000: loss: 84.384	mae: 0.602	mse: 0.874	val_loss: 84.499	val_mae: 0.572	val_mse: 0.756	
+15:54:00, epoch 2000: loss: 27.487	mae: 0.611	mse: 0.897	val_loss: 27.453	val_mae: 0.608	val_mse: 0.862	
+15:59:28, epoch 3000: loss: 12.463	mae: 0.619	mse: 0.909	val_loss: 12.960	val_mae: 0.549	val_mse: 0.694	
+16:05:23, epoch 4000: loss: 7.529	mae: 0.596	mse: 0.841	val_loss: 7.489	val_mae: 0.622	val_mse: 0.929	
+16:11:18, epoch 0: loss: 92.412	mae: 1.142	mse: 2.170	val_loss: 87.858	val_mae: 1.081	val_mse: 1.965	
+16:17:01, epoch 1000: loss: 22.423	mae: 0.592	mse: 0.859	val_loss: 22.182	val_mae: 0.607	val_mse: 0.855	
+16:22:43, epoch 2000: loss: 10.706	mae: 0.590	mse: 0.861	val_loss: 10.702	val_mae: 0.614	val_mse: 0.860	
+16:28:25, epoch 3000: loss: 5.552	mae: 0.603	mse: 0.883	val_loss: 5.579	val_mae: 0.560	val_mse: 0.731	
+16:34:02, epoch 4000: loss: 3.645	mae: 0.588	mse: 0.843	val_loss: 3.583	val_mae: 0.526	val_mse: 0.643	
+16:39:53, epoch 0: loss: 75.850	mae: 1.341	mse: 3.060	val_loss: 63.430	val_mae: 1.241	val_mse: 2.575	
+16:44:46, epoch 1000: loss: 19.941	mae: 0.592	mse: 0.873	val_loss: 19.667	val_mae: 0.527	val_mse: 0.658	
+16:49:39, epoch 2000: loss: 9.833	mae: 0.597	mse: 0.860	val_loss: 9.389	val_mae: 0.577	val_mse: 0.786	
+16:54:30, epoch 3000: loss: 5.272	mae: 0.599	mse: 0.867	val_loss: 5.088	val_mae: 0.578	val_mse: 0.717	
+16:59:41, epoch 4000: loss: 3.711	mae: 0.589	mse: 0.839	val_loss: 3.660	val_mae: 0.613	val_mse: 0.916	
+17:05:18, epoch 0: loss: 61.886	mae: 1.024	mse: 1.837	val_loss: 59.739	val_mae: 0.992	val_mse: 1.671	
+17:12:03, epoch 1000: loss: 6.329	mae: 0.563	mse: 0.792	val_loss: 6.240	val_mae: 0.549	val_mse: 0.728	
+17:18:34, epoch 2000: loss: 2.746	mae: 0.569	mse: 0.831	val_loss: 2.836	val_mae: 0.555	val_mse: 0.776	
+17:25:39, epoch 3000: loss: 2.227	mae: 0.569	mse: 0.818	val_loss: 2.082	val_mae: 0.560	val_mse: 0.758	
+17:32:41, epoch 4000: loss: 1.991	mae: 0.563	mse: 0.806	val_loss: 1.986	val_mae: 0.565	val_mse: 0.788	
+Exception encountered when calling layer "max_pooling2d_16" (type MaxPooling2D).
+
+Negative dimension size caused by subtracting 2 from 1 for '{{node max_pooling2d_16/MaxPool}} = MaxPool[T=DT_FLOAT, data_format="NHWC", explicit_paddings=[], ksize=[1, 2, 2, 1], padding="VALID", strides=[1, 2, 2, 1]](Placeholder)' with input shapes: [?,4,1,4].
+
+Call arguments received by layer "max_pooling2d_16" (type MaxPooling2D):
+  • inputs=tf.Tensor(shape=(None, 4, 1, 4), dtype=float32)
+17:39:36, epoch 0: loss: 131.644	mae: 1.236	mse: 2.530	val_loss: 116.319	val_mae: 1.174	val_mse: 2.269	
+17:44:56, epoch 1000: loss: 24.527	mae: 0.600	mse: 0.865	val_loss: 24.295	val_mae: 0.580	val_mse: 0.775	
+17:50:15, epoch 2000: loss: 10.746	mae: 0.610	mse: 0.895	val_loss: 10.509	val_mae: 0.608	val_mse: 0.847	
+17:55:24, epoch 3000: loss: 6.358	mae: 0.610	mse: 0.905	val_loss: 6.186	val_mae: 0.566	val_mse: 0.720	
+18:00:37, epoch 4000: loss: 4.612	mae: 0.606	mse: 0.878	val_loss: 4.389	val_mae: 0.587	val_mse: 0.774	
+18:05:54, epoch 0: loss: 90.713	mae: 1.337	mse: 2.946	val_loss: 86.826	val_mae: 1.270	val_mse: 2.718	
+18:10:53, epoch 1000: loss: 20.828	mae: 0.611	mse: 0.906	val_loss: 20.687	val_mae: 0.578	val_mse: 0.795	
+18:15:52, epoch 2000: loss: 10.018	mae: 0.598	mse: 0.854	val_loss: 9.856	val_mae: 0.563	val_mse: 0.717	
+18:20:55, epoch 3000: loss: 6.391	mae: 0.616	mse: 0.907	val_loss: 6.483	val_mae: 0.638	val_mse: 0.920	
+18:25:54, epoch 4000: loss: 4.841	mae: 0.604	mse: 0.880	val_loss: 5.111	val_mae: 0.614	val_mse: 0.898	
+18:30:56, epoch 0: loss: 170.376	mae: 1.221	mse: 2.394	val_loss: 162.595	val_mae: 1.210	val_mse: 2.280	
+18:36:35, epoch 1000: loss: 34.729	mae: 0.595	mse: 0.864	val_loss: 34.335	val_mae: 0.599	val_mse: 0.853	
+18:42:12, epoch 2000: loss: 13.181	mae: 0.586	mse: 0.834	val_loss: 13.283	val_mae: 0.560	val_mse: 0.741	
+18:47:46, epoch 3000: loss: 6.560	mae: 0.616	mse: 0.909	val_loss: 6.453	val_mae: 0.575	val_mse: 0.785	
+18:53:21, epoch 4000: loss: 4.489	mae: 0.607	mse: 0.889	val_loss: 4.263	val_mae: 0.573	val_mse: 0.780	
+18:59:13, epoch 0: loss: 50.545	mae: 1.146	mse: 2.212	val_loss: 47.716	val_mae: 1.059	val_mse: 1.948	
+19:04:52, epoch 1000: loss: 10.106	mae: 0.586	mse: 0.840	val_loss: 9.894	val_mae: 0.526	val_mse: 0.674	
+19:10:22, epoch 2000: loss: 4.354	mae: 0.587	mse: 0.843	val_loss: 4.301	val_mae: 0.572	val_mse: 0.727	
+19:16:06, epoch 3000: loss: 3.171	mae: 0.577	mse: 0.826	val_loss: 3.238	val_mae: 0.577	val_mse: 0.804	
+19:21:51, epoch 4000: loss: 2.820	mae: 0.589	mse: 0.889	val_loss: 2.861	val_mae: 0.553	val_mse: 0.729	
+Exception encountered when calling layer "max_pooling2d_28" (type MaxPooling2D).
+
+Negative dimension size caused by subtracting 2 from 1 for '{{node max_pooling2d_28/MaxPool}} = MaxPool[T=DT_FLOAT, data_format="NHWC", explicit_paddings=[], ksize=[1, 2, 2, 1], padding="VALID", strides=[1, 2, 2, 1]](Placeholder)' with input shapes: [?,4,1,2].
+
+Call arguments received by layer "max_pooling2d_28" (type MaxPooling2D):
+  • inputs=tf.Tensor(shape=(None, 4, 1, 2), dtype=float32)
+Exception encountered when calling layer "max_pooling2d_31" (type MaxPooling2D).
+
+Negative dimension size caused by subtracting 2 from 1 for '{{node max_pooling2d_31/MaxPool}} = MaxPool[T=DT_FLOAT, data_format="NHWC", explicit_paddings=[], ksize=[1, 2, 2, 1], padding="VALID", strides=[1, 2, 2, 1]](Placeholder)' with input shapes: [?,4,1,2].
+
+Call arguments received by layer "max_pooling2d_31" (type MaxPooling2D):
+  • inputs=tf.Tensor(shape=(None, 4, 1, 2), dtype=float32)
+19:27:47, epoch 0: loss: 28.560	mae: 1.120	mse: 2.121	val_loss: 25.507	val_mae: 1.027	val_mse: 1.858	
+19:33:17, epoch 1000: loss: 7.920	mae: 0.579	mse: 0.848	val_loss: 7.799	val_mae: 0.563	val_mse: 0.752	
+19:38:47, epoch 2000: loss: 5.272	mae: 0.561	mse: 0.776	val_loss: 5.115	val_mae: 0.550	val_mse: 0.770	
+19:44:00, epoch 3000: loss: 4.082	mae: 0.570	mse: 0.818	val_loss: 3.979	val_mae: 0.569	val_mse: 0.806	
+19:48:56, epoch 4000: loss: 3.532	mae: 0.569	mse: 0.809	val_loss: 3.623	val_mae: 0.551	val_mse: 0.737	
+19:54:24, epoch 0: loss: 157.117	mae: 1.288	mse: 2.679	val_loss: 150.915	val_mae: 1.285	val_mse: 2.684	
+19:59:51, epoch 1000: loss: 45.666	mae: 0.609	mse: 0.875	val_loss: 45.519	val_mae: 0.565	val_mse: 0.722	
+20:05:20, epoch 2000: loss: 25.608	mae: 0.610	mse: 0.874	val_loss: 25.546	val_mae: 0.571	val_mse: 0.747	
+20:10:51, epoch 3000: loss: 14.330	mae: 0.593	mse: 0.817	val_loss: 14.091	val_mae: 0.562	val_mse: 0.716	
+20:16:20, epoch 4000: loss: 8.634	mae: 0.606	mse: 0.871	val_loss: 8.548	val_mae: 0.599	val_mse: 0.821	
+20:21:57, epoch 0: loss: 18.517	mae: 1.113	mse: 2.128	val_loss: 16.217	val_mae: 1.101	val_mse: 2.080	
+20:26:56, epoch 1000: loss: 4.662	mae: 0.582	mse: 0.841	val_loss: 4.557	val_mae: 0.535	val_mse: 0.683	
+20:32:04, epoch 2000: loss: 3.204	mae: 0.559	mse: 0.798	val_loss: 3.110	val_mae: 0.560	val_mse: 0.768	
+20:37:14, epoch 3000: loss: 2.931	mae: 0.567	mse: 0.817	val_loss: 2.895	val_mae: 0.548	val_mse: 0.811	
+20:42:24, epoch 4000: loss: 2.735	mae: 0.567	mse: 0.820	val_loss: 2.881	val_mae: 0.557	val_mse: 0.772	
+20:47:48, epoch 0: loss: 22.715	mae: 1.065	mse: 1.935	val_loss: 20.093	val_mae: 1.057	val_mse: 1.835	
+20:53:05, epoch 1000: loss: 3.170	mae: 0.579	mse: 0.837	val_loss: 3.394	val_mae: 0.581	val_mse: 0.806	
+20:58:17, epoch 2000: loss: 1.864	mae: 0.579	mse: 0.852	val_loss: 1.974	val_mae: 0.547	val_mse: 0.723	
+21:03:16, epoch 3000: loss: 1.613	mae: 0.571	mse: 0.826	val_loss: 1.524	val_mae: 0.576	val_mse: 0.848	
+21:08:26, epoch 4000: loss: 1.517	mae: 0.567	mse: 0.819	val_loss: 1.710	val_mae: 0.538	val_mse: 0.689	
+21:13:54, epoch 0: loss: 103.609	mae: 1.113	mse: 2.059	val_loss: 99.575	val_mae: 0.985	val_mse: 1.579	
+21:19:24, epoch 1000: loss: 17.086	mae: 0.593	mse: 0.844	val_loss: 16.916	val_mae: 0.573	val_mse: 0.766	
+21:24:54, epoch 2000: loss: 5.634	mae: 0.598	mse: 0.889	val_loss: 5.643	val_mae: 0.589	val_mse: 0.850	
+21:30:27, epoch 3000: loss: 3.808	mae: 0.592	mse: 0.844	val_loss: 3.657	val_mae: 0.578	val_mse: 0.821	
+21:35:57, epoch 4000: loss: 3.261	mae: 0.603	mse: 0.862	val_loss: 3.087	val_mae: 0.576	val_mse: 0.798	
+21:41:35, epoch 0: loss: 63.770	mae: 1.211	mse: 2.539	val_loss: 60.911	val_mae: 1.117	val_mse: 2.232	
+21:46:13, epoch 1000: loss: 11.565	mae: 0.585	mse: 0.827	val_loss: 11.630	val_mae: 0.580	val_mse: 0.795	
+21:50:53, epoch 2000: loss: 4.558	mae: 0.594	mse: 0.849	val_loss: 4.441	val_mae: 0.572	val_mse: 0.804	
+21:55:26, epoch 3000: loss: 3.614	mae: 0.602	mse: 0.876	val_loss: 3.628	val_mae: 0.606	val_mse: 0.896	
