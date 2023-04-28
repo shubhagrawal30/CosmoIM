@@ -27,14 +27,14 @@ optuna_dir = "./models/optuna_bnn/CO_20230313_no_std/"
 Path(optuna_dir + "plots/").mkdir(parents=True, exist_ok=True)
 
 logging.basicConfig(filename=optuna_dir + 'optuna.txt',
-                    filemode='w',
+                    filemode='a',
                     level=logging.INFO)
 optuna.logging.disable_default_handler()
 optuna.logging.enable_propagation()
 
-f_tf = open(optuna_dir + 'stdout.txt', 'w')
+f_tf = open(optuna_dir + 'stdout.txt', 'a')
 sys.stdout = PrintToFile(sys.stdout, f_tf)
-f_op = open(optuna_dir + 'stderr.txt', 'w')
+f_op = open(optuna_dir + 'stderr.txt', 'a')
 sys.stderr = PrintToFile(sys.stderr, f_op)
 
 class CustomCallback(tf.keras.callbacks.Callback):
@@ -168,8 +168,10 @@ def objective(trial):
     except Exception as e:
         print(e)
         return np.inf
-    
-study = optuna.create_study(direction='minimize')
+
+study_name = optuna_dir + "optuna_bnn"
+storage_name = "sqlite:///optuna_bnn.db"
+study = optuna.create_study(study_name=study_name, storage=storage_name, direction='minimize', load_if_exists=True)
 study.optimize(objective, n_trials=1000)
 
 fig = plot_optimization_history(study)
