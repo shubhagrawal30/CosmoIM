@@ -1,0 +1,3 @@
+[submodule "simim_public"]
+	path = simim_public
+	url = https://github.com/rpkeenan/simim_public/
